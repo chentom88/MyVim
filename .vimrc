@@ -25,6 +25,7 @@ set hlsearch
 
 set expandtab
 
+let g:go_fmt_command = "goimports"
 map <C-n> :NERDTreeToggle<CR>
 
 set nocompatible
