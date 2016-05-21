@@ -3,6 +3,8 @@ call pathogen#helptags()
 
 syntax enable
 
+set encoding=utf-8
+
 filetype plugin on
 filetype indent on
 
@@ -24,6 +26,7 @@ set showmatch
 set hlsearch
 
 set expandtab
+set autoindent
 
 let g:go_fmt_command = "goimports"
 map <C-n> :NERDTreeToggle<CR>
@@ -39,6 +42,27 @@ set nobackup
 set noswapfile
 
 set mouse=a
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
+
+" Python indentation
+au BufNewFile,BufRead *.py
+    \ set textwidth=79 |
+    \ set fileformat=unix |
+
+let python_highlight_all=1
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+let g:SimpylFold_docstring_preview=1
+
+" Fullstack indentation
+au BufNewFile,BufRead *.js,*.html,*.css
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2 |
 
 " Easy window navigation
 map <C-h> <C-w>h
