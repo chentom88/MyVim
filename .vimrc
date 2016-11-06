@@ -86,3 +86,7 @@ map ,* :s/^\(.*\)$/\/\* \1 \*\//<CR>:nohlsearch<CR>
 map ,( :s/^\(.*\)$/\(\* \1 \*\)/<CR>:nohlsearch<CR>
 map ,< :s/^\(.*\)$/<!-- \1 -->/<CR>:nohlsearch<CR>
 map ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR>:nohlsearch<CR>
+
+augroup filetype
+    au! BufRead,BufNewFile *.proto setfiletype proto
+augroup end
