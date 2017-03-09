@@ -90,3 +90,5 @@ map ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR>:nohlsearch<CR>
 augroup filetype
     au! BufRead,BufNewFile *.proto setfiletype proto
 augroup end
+
+set laststatus=2
