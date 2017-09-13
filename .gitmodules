@@ -15,7 +15,7 @@
 	url = https://github.com/pangloss/vim-javascript.git
 [submodule ".vim/bundle/vim-surround"]
 	path = .vim/bundle/vim-surround
-	url = https://github.com/tpope/vim-surround.git
+	url = git@github.com:tpope/vim-surround.git
 [submodule ".vim/bundle/SimpylFold"]
 	path = .vim/bundle/SimpylFold
 	url = https://github.com/tmhedberg/SimpylFold.git
@@ -46,3 +46,9 @@
 [submodule ".vim/bundle/vim-cljfmt"]
 	path = .vim/bundle/vim-cljfmt
 	url = https://github.com/venantius/vim-cljfmt.git
+[submodule ".vim/bundle/rust.vim"]
+	path = .vim/bundle/rust.vim
+	url = git@github.com:rust-lang/rust.vim.git
+[submodule ".vim/bundle/vim-polyglot"]
+	path = .vim/bundle/vim-polyglot
+	url = git@github.com:sheerun/vim-polyglot.git
