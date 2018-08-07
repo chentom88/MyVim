@@ -28,7 +28,6 @@ set hlsearch
 set expandtab
 set autoindent
 
-let g:go_fmt_command = "goimports"
 map <C-n> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
 
@@ -93,3 +92,53 @@ augroup end
 
 set laststatus=2
 let g:rustfmt_autosave = 1
+
+"-----------------------------------------------------------------------------
+" VIM-GO CONFIG
+"-----------------------------------------------------------------------------
+let g:go_fmt_command = "goimports"
+
+" highlight go-vim
+highlight goSameId term=bold cterm=bold ctermbg=250 ctermfg=239
+set updatetime=100 " updates :GoInfo faster
+
+" vim-go command shortcuts
+autocmd FileType go nmap <leader>r <Plug>(go-run)
+autocmd FileType go nmap <leader>t :wa<CR>:!clear;go test -v ./%:h<CR>
+autocmd FileType go nmap <leader>a <Plug>(go-alternate-edit)
+autocmd FileType go nmap <leader>d :GoDeclsDir<CR>
+autocmd FileType go nmap <leader>g <Plug>(go-generate)
+autocmd FileType go nmap <leader>? :GoDoc<CR>
+autocmd FileType go nmap <leader>n :GoRename<CR>
+autocmd FileType go nmap <leader>l :GoMetaLinter<CR>
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
+function! s:toggle_coverage()
+    call go#coverage#BufferToggle(!g:go_jump_to_error)
+    highlight ColorColumn ctermbg=235
+    highlight NonText ctermfg=239
+    highlight SpecialKey ctermfg=239
+    highlight goSameId term=bold cterm=bold ctermbg=250 ctermfg=239
+endfunction
+
+autocmd FileType go nmap <leader>c :<C-u>call <SID>toggle_coverage()<CR>
+
+" This will add new commands, called :A, :AV, :AS and :AT. Here :A works just
+" like :GoAlternate, it replaces the current buffer with the alternate file.
+" :AV will open a new vertical split with the alternate file. :AS will open
+" the alternate file in a new split view and :AT in a new tab.
+autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
